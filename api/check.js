@@ -9,7 +9,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ status: 'false', account_holder: 'Invalid', account_number: 'Invalid' });
   }
 
-  const API_KEY = 'mt8i7dZxOUBtlMsMRyZ9lmsVE9jQCW4oJOIXj3YTxq4F8BzpsAbNJ8LAEZLg';
+  const API_KEY = process.env.CEKBANK_API_KEY;   // ← ambil dari env
+
+  if (!API_KEY) {
+    return res.status(500).json({ status: 'false', account_holder: 'Server Error', account_number: 'Invalid' });
+  }
 
   try {
     const formData = new URLSearchParams();
@@ -17,28 +21,19 @@ export default async function handler(req, res) {
     formData.append('code_bank', code_bank);
     formData.append('account_number', account_number);
 
-    const apiResponse = await fetch('https://cekbank.my.id/api/bank_check', {
+    const response = await fetch('https://cekbank.my.id/api/bank_check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0',
       },
       body: formData,
     });
 
-    const data = await apiResponse.json();
-    
-    // Untuk debugging di Vercel Logs
-    console.log('API Response:', data);
-
+    const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({
-      status: "false",
-      account_holder: "Error Server",
-      account_number: "Invalid"
-    });
+    console.error(error);
+    res.status(500).json({ status: 'false', account_holder: 'Error', account_number: 'Invalid' });
   }
 }
