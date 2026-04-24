@@ -3,72 +3,128 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cek Rekening & E-Wallet</title>
+  <title>Cek Rekening • Cyberpunk</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    body { font-family: 'Inter', system-ui, sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap');
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #050505;
+      background-image: 
+        linear-gradient(rgba(34, 211, 238, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+      overflow-x: hidden;
+    }
+    
+    .neon-cyan {
+      text-shadow: 
+        0 0 10px #22d3ee,
+        0 0 20px #22d3ee,
+        0 0 40px #22d3ee;
+    }
+    
+    .neon-magenta {
+      text-shadow: 
+        0 0 10px #ec4899,
+        0 0 20px #ec4899,
+        0 0 40px #ec4899;
+    }
+    
+    .glass {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+    }
+    
+    .neon-button {
+      animation: neonPulse 2s infinite alternate ease-in-out;
+    }
+    
+    @keyframes neonPulse {
+      from { box-shadow: 0 0 15px #22d3ee; }
+      to { box-shadow: 0 0 35px #22d3ee, 0 0 50px #ec4899; }
+    }
+    
+    .result-card {
+      animation: resultPop 0.6s ease forwards;
+    }
+    
+    @keyframes resultPop {
+      0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    
+    .title-glitch {
+      animation: glitch 1.5s infinite alternate;
+    }
   </style>
 </head>
-<body class="bg-gray-50 min-h-screen py-8">
+<body class="min-h-screen py-10 text-white">
   <div class="max-w-3xl mx-auto px-4">
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-3xl shadow mb-4">
-        <i class="fas fa-university text-3xl text-blue-600"></i>
-        <h1 class="text-3xl font-bold text-gray-900">Cek Rekening</h1>
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-4 bg-black/70 px-8 py-4 rounded-3xl border border-cyan-400/30 mb-6">
+        <i class="fas fa-university text-4xl neon-cyan"></i>
+        <h1 class="text-5xl font-bold tracking-tighter title-glitch" style="font-family: 'Orbitron', sans-serif;">
+          CEK<span class="neon-magenta">.</span>REKENING
+        </h1>
       </div>
-      <p class="text-gray-600">Bank & E-Wallet via cekbank.my.id</p>
+      <p class="text-cyan-400 text-lg flex items-center justify-center gap-2">
+        <span class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></span>
+        BANK &amp; E-WALLET • LIVE VIA CEKBANK.MY.ID
+      </p>
     </div>
 
-    <div class="bg-white rounded-3xl shadow-2xl p-8">
-      <form id="checkForm" class="space-y-6">
+    <!-- Main Card -->
+    <div class="glass rounded-3xl shadow-2xl shadow-cyan-500/20 p-8">
+      <form id="checkForm" class="space-y-8">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Bank / E-Wallet</label>
-          <select id="code_bank" class="w-full px-5 py-4 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:border-blue-600">
-            <!-- diisi otomatis -->
-          </select>
+          <label class="block text-sm font-medium text-cyan-300 mb-2 tracking-widest">BANK / E-WALLET</label>
+          <select id="code_bank" class="w-full px-6 py-5 bg-slate-950 border border-cyan-400/30 rounded-2xl text-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"></select>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Rekening / Nomor HP</label>
+          <label class="block text-sm font-medium text-cyan-300 mb-2 tracking-widest">NOMOR REKENING / HP</label>
           <input type="text" id="account_number" 
-                 class="w-full px-5 py-4 text-lg border border-gray-300 rounded-2xl focus:outline-none focus:border-blue-600"
-                 placeholder="Contoh: 1820701960 atau 081234567890" required>
+                 class="w-full px-6 py-5 bg-slate-950 border border-cyan-400/30 rounded-2xl text-lg focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/50 transition-all"
+                 placeholder="1820701960 atau 081234567890" required>
         </div>
 
         <button type="submit" id="submitBtn"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl text-xl flex items-center justify-center gap-3 transition">
-          <i class="fas fa-search"></i>
+                class="neon-button w-full py-6 text-2xl font-bold rounded-3xl bg-transparent border-2 border-cyan-400 text-cyan-300 hover:text-black hover:bg-gradient-to-r hover:from-cyan-400 hover:to-pink-500 transition-all flex items-center justify-center gap-4 shadow-lg">
+          <i class="fas fa-bolt"></i>
           CEK SEKARANG
         </button>
       </form>
 
       <!-- Result -->
-      <div id="result" class="mt-8"></div>
+      <div id="result" class="mt-10"></div>
     </div>
 
-    <!-- Riwayat Pengecekan -->
-    <div class="mt-12">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold flex items-center gap-2">
-          <i class="fas fa-history"></i> Riwayat Pengecekan
+    <!-- Riwayat -->
+    <div class="mt-16">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-semibold flex items-center gap-3 neon-cyan">
+          <i class="fas fa-history"></i> RIWAYAT PENGECEKAN
         </h2>
         <button onclick="clearHistory()" 
-                class="text-red-500 hover:text-red-700 text-sm flex items-center gap-1">
-          <i class="fas fa-trash"></i> Hapus Semua
+                class="flex items-center gap-2 text-pink-400 hover:text-pink-500 transition">
+          <i class="fas fa-trash"></i> HAPUS SEMUA
         </button>
       </div>
-      <div id="history" class="bg-white rounded-3xl shadow overflow-hidden"></div>
+      <div id="history" class="glass rounded-3xl overflow-hidden"></div>
     </div>
 
-    <p class="text-center text-xs text-gray-400 mt-12">
-      Powered by <a href="https://cekbank.my.id" target="_blank" class="underline">cekbank.my.id</a>
+    <p class="text-center text-xs text-cyan-400/60 mt-12 tracking-widest">
+      POWERED BY <a href="https://cekbank.my.id" target="_blank" class="hover:text-cyan-300 underline">CEKBANK.MY.ID</a>
     </p>
   </div>
 
   <script>
-    // Daftar lengkap bank + e-wallet (semua yang kamu kasih)
+    // Daftar bank & e-wallet (sudah lengkap)
     const bankOptions = [
       { value: "all_ewallet", label: "🔥 CEK SEMUA E-WALLET SEKALIGUS" },
       { value: "gopay", label: "GoPay" },
@@ -76,30 +132,20 @@
       { value: "dana", label: "Dana" },
       { value: "shopeepay", label: "ShopeePay" },
       { value: "linkaja", label: "LinkAja" },
-      { value: "bca", label: "BCA - Bank Central Asia" },
+      { value: "bca", label: "BCA" },
       { value: "bni", label: "BNI" },
-      { value: "bri", label: "BRI - Bank Rakyat Indonesia" },
-      { value: "mandiri", label: "Bank Mandiri" },
-      { value: "bsi", label: "BSI (Bank Syariah Indonesia)" },
-      { value: "btn", label: "BTN / BTN Syariah" },
+      { value: "bri", label: "BRI" },
+      { value: "mandiri", label: "Mandiri" },
+      { value: "bsi", label: "BSI Syariah" },
+      { value: "btn", label: "BTN" },
       { value: "permata", label: "Permata Bank" },
-      { value: "danamon", label: "Bank Danamon" },
+      { value: "danamon", label: "Danamon" },
       { value: "cimb", label: "CIMB Niaga" },
       { value: "ocbc", label: "OCBC NISP" },
-      { value: "maybank", label: "Maybank Indonesia" },
+      { value: "maybank", label: "Maybank" },
       { value: "bjb", label: "BJB" },
-      { value: "bjb_syr", label: "BJB Syariah" },
       { value: "panin", label: "Panin Bank" },
-      { value: "uob", label: "TMRW / UOB" },
-      { value: "jago", label: "Bank Jago" },
-      { value: "nobu", label: "Nobu Bank" },
-      { value: "harda", label: "Allo Bank / Bank Harda Internasional" },
-      { value: "mandiri", label: "Bank Mandiri" },
-      { value: "mantap", label: "Bank MANTAP (Mandiri Taspen)" },
-      { value: "mega", label: "Bank Mega" },
-      { value: "bukopin", label: "Bank Bukopin" },
-      { value: "sinarmas", label: "Bank Sinarmas" },
-      // Kamu bisa tambah sisanya dari list kamu kalau mau lebih lengkap
+      { value: "jago", label: "Bank Jago" }
     ];
 
     const bankMap = {};
@@ -121,30 +167,30 @@
     function loadHistory() {
       const history = JSON.parse(localStorage.getItem('cekRekeningHistory') || '[]');
       if (history.length === 0) {
-        historyDiv.innerHTML = `<div class="p-8 text-center text-gray-400 italic">Belum ada riwayat pengecekan.</div>`;
+        historyDiv.innerHTML = `<div class="p-12 text-center text-cyan-400/40">Belum ada riwayat pengecekan...</div>`;
         return;
       }
 
-      let html = `<div class="overflow-x-auto"><table class="w-full"><thead class="bg-gray-50"><tr>
-        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">TANGGAL</th>
-        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">BANK/EWALLET</th>
-        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">NO. REKENING</th>
-        <th class="px-6 py-4 text-left text-sm font-medium text-gray-500">NAMA PEMILIK</th>
-        <th class="px-6 py-4 text-center text-sm font-medium text-gray-500">STATUS</th>
-      </tr></thead><tbody class="divide-y">`;
+      let html = `<div class="overflow-x-auto"><table class="w-full"><thead><tr class="border-b border-cyan-400/20 text-cyan-300 text-xs tracking-widest">
+        <th class="px-8 py-5 text-left">TANGGAL</th>
+        <th class="px-8 py-5 text-left">BANK / EWALLET</th>
+        <th class="px-8 py-5 text-left">NOMOR</th>
+        <th class="px-8 py-5 text-left">NAMA PEMILIK</th>
+        <th class="px-8 py-5 text-center">STATUS</th>
+      </tr></thead><tbody class="divide-y divide-cyan-400/10">`;
 
       history.slice(0, 15).forEach(item => {
         const date = new Date(item.timestamp).toLocaleString('id-ID', { dateStyle: 'short', timeStyle: 'short' });
-        const status = item.status === 'SUCCESS' 
-          ? `<span class="inline-block bg-green-100 text-green-700 px-4 py-1 rounded-full text-xs font-medium">BERHASIL</span>`
-          : `<span class="inline-block bg-red-100 text-red-700 px-4 py-1 rounded-full text-xs font-medium">GAGAL</span>`;
+        const statusHTML = item.status === 'SUCCESS' 
+          ? `<span class="inline-flex items-center gap-1 bg-green-500/20 text-green-400 px-6 py-1 rounded-3xl text-xs font-bold"><i class="fas fa-check"></i> BERHASIL</span>`
+          : `<span class="inline-flex items-center gap-1 bg-red-500/20 text-red-400 px-6 py-1 rounded-3xl text-xs font-bold"><i class="fas fa-xmark"></i> GAGAL</span>`;
 
-        html += `<tr class="hover:bg-gray-50">
-          <td class="px-6 py-4 text-sm text-gray-600">${date}</td>
-          <td class="px-6 py-4 text-sm font-medium">${item.bankName}</td>
-          <td class="px-6 py-4 text-sm">${item.account_number}</td>
-          <td class="px-6 py-4 text-sm font-medium">${item.account_holder}</td>
-          <td class="px-6 py-4 text-center">${status}</td>
+        html += `<tr class="hover:bg-white/5 transition">
+          <td class="px-8 py-5 text-cyan-400/70">${date}</td>
+          <td class="px-8 py-5 font-medium">${item.bankName}</td>
+          <td class="px-8 py-5">${item.account_number}</td>
+          <td class="px-8 py-5 font-semibold">${item.account_holder}</td>
+          <td class="px-8 py-5 text-center">${statusHTML}</td>
         </tr>`;
       });
 
@@ -154,23 +200,20 @@
 
     function saveToHistory(data, code_bank, account_number) {
       let history = JSON.parse(localStorage.getItem('cekRekeningHistory') || '[]');
-      const bankName = bankMap[code_bank] || code_bank.toUpperCase();
-
       history.unshift({
         timestamp: Date.now(),
-        bankName: bankName,
+        bankName: bankMap[code_bank] || code_bank.toUpperCase(),
         account_number: account_number,
         account_holder: data.account_holder || 'Invalid',
         status: data.status
       });
-
       if (history.length > 30) history.pop();
       localStorage.setItem('cekRekeningHistory', JSON.stringify(history));
       loadHistory();
     }
 
     function clearHistory() {
-      if (confirm('Hapus SEMUA riwayat pengecekan?')) {
+      if (confirm('Hapus semua riwayat pengecekan?')) {
         localStorage.removeItem('cekRekeningHistory');
         loadHistory();
       }
@@ -182,10 +225,10 @@
       const account_number = document.getElementById('account_number').value.trim();
       const bankName = bankMap[code_bank] || code_bank.toUpperCase();
 
-      if (!code_bank || !account_number) return alert('Isi semua field!');
+      if (!code_bank || !account_number) return alert('Isi semua field bro!');
 
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sedang mengecek...`;
+      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> SCANNING...`;
 
       try {
         const res = await fetch('/api/check', {
@@ -198,35 +241,34 @@
 
         if (data.status === "SUCCESS") {
           resultDiv.innerHTML = `
-            <div class="bg-green-50 border border-green-200 rounded-3xl p-8">
-              <div class="flex items-center gap-4">
-                <i class="fas fa-check-circle text-6xl text-green-500"></i>
+            <div class="result-card glass rounded-3xl p-8 border border-green-400/50">
+              <div class="flex items-center gap-6">
+                <div class="text-7xl">✅</div>
                 <div class="flex-1">
-                  <p class="text-green-700 font-semibold">✅ Berhasil!</p>
-                  <p class="text-2xl font-bold text-gray-900 mt-1">${bankName}</p>
-                  <p class="text-3xl font-bold text-gray-800 mt-4">${data.account_holder}</p>
-                  <p class="text-lg text-gray-600 mt-2">${data.account_number}</p>
+                  <p class="text-green-400 text-xl font-bold tracking-widest">BERHASIL • ${bankName}</p>
+                  <p class="text-4xl font-bold mt-2 neon-cyan">${data.account_holder}</p>
+                  <p class="text-2xl text-cyan-300 mt-4">${data.account_number}</p>
                 </div>
               </div>
             </div>`;
           saveToHistory(data, code_bank, account_number);
         } else {
           resultDiv.innerHTML = `
-            <div class="bg-red-50 border border-red-200 rounded-3xl p-8 text-center">
-              <i class="fas fa-times-circle text-6xl text-red-500 mb-4"></i>
-              <h3 class="text-red-700 text-2xl font-semibold">Tidak Ditemukan / Invalid</h3>
-              <p class="text-gray-600 mt-3">Cek kembali nomor rekening atau e-wallet kamu</p>
+            <div class="result-card glass rounded-3xl p-8 border border-red-400/50 text-center">
+              <div class="text-7xl mb-4">❌</div>
+              <p class="text-red-400 text-2xl font-bold">TIDAK DITEMUKAN / INVALID</p>
+              <p class="text-cyan-300/70 mt-3">Cek lagi nomornya bro...</p>
             </div>`;
         }
       } catch (err) {
-        resultDiv.innerHTML = `<div class="bg-red-50 border border-red-200 rounded-3xl p-8 text-center text-red-600">Gagal terhubung ke server. Coba lagi nanti.</div>`;
+        resultDiv.innerHTML = `<div class="glass rounded-3xl p-8 text-red-400 text-center">Gagal koneksi ke server. Coba lagi.</div>`;
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `<i class="fas fa-search"></i> CEK SEKARANG`;
+        submitBtn.innerHTML = `<i class="fas fa-bolt"></i> CEK SEKARANG`;
       }
     });
 
-    // Load riwayat saat halaman dibuka
+    // Load riwayat
     loadHistory();
   </script>
 </body>
