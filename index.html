@@ -124,9 +124,8 @@
   </div>
 
   <script>
-    // Daftar bank & e-wallet (sudah lengkap)
+    // Daftar bank & e-wallet (sudah diupdate)
     const bankOptions = [
-      { value: "all_ewallet", label: "🔥 CEK SEMUA E-WALLET SEKALIGUS" },
       { value: "gopay", label: "GoPay" },
       { value: "ovo", label: "OVO" },
       { value: "dana", label: "Dana" },
@@ -145,7 +144,9 @@
       { value: "maybank", label: "Maybank" },
       { value: "bjb", label: "BJB" },
       { value: "panin", label: "Panin Bank" },
-      { value: "jago", label: "Bank Jago" }
+      { value: "jago", label: "Bank Jago" },
+      { value: "kesejahteraan_ekonomi", label: "Seabank / Bank BKE" },
+      { value: "sinarmas", label: "Bank Sinarmas" }
     ];
 
     const bankMap = {};
@@ -268,7 +269,6 @@
       }
     });
 
-    // Load riwayat
     loadHistory();
   </script>
 </body>
