@@ -11,31 +11,37 @@
     
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      background: linear-gradient(135deg, #1e1133 0%, #0f172a 100%);
+      background: linear-gradient(135deg, #1a1033 0%, #0f172a 100%);
       min-height: 100vh;
     }
     
     .glass {
-      background: rgba(15, 23, 42, 0.75);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(167, 139, 250, 0.3);
+      border: 1px solid rgba(167, 139, 250, 0.25);
     }
     
-    .header-gradient {
-      background: linear-gradient(90deg, #a78bfa, #22d3ee);
+    .header-pill {
+      background: linear-gradient(90deg, #22d3ee, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    
+
+    .tab-active {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee);
+      color: white;
+      box-shadow: 0 10px 15px -3px rgb(167 139 250);
+    }
+
     .neon-button {
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
     
     .neon-button:hover {
-      transform: translateY(-3px) scale(1.03);
+      transform: translateY(-3px);
       box-shadow: 0 20px 25px -5px rgb(167 139 250);
     }
-    
+
     .result-card {
       animation: fadeInScale 0.5s ease forwards;
     }
@@ -44,56 +50,50 @@
       0% { opacity: 0; transform: scale(0.95); }
       100% { opacity: 1; transform: scale(1); }
     }
-
-    .tab-active {
-      background: linear-gradient(90deg, #a78bfa, #22d3ee);
-      color: white;
-      box-shadow: 0 10px 15px -3px rgb(167 139 250);
-    }
   </style>
 </head>
 <body class="text-white py-12">
   <div class="max-w-3xl mx-auto px-4">
     <!-- Header -->
     <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-6 py-3 rounded-3xl border border-white/20 mb-4">
-        <i class="fas fa-university text-4xl text-emerald-400"></i>
-        <h1 class="text-5xl font-bold tracking-tight header-gradient">CEK REKENING</h1>
+      <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl px-8 py-4 rounded-3xl border border-white/20 mb-4 shadow-2xl">
+        <i class="fas fa-university text-4xl text-cyan-400"></i>
+        <h1 class="text-5xl font-bold tracking-tighter header-pill">CEK REKENING</h1>
       </div>
       <p class="text-indigo-300 text-lg">Bank & E-Wallet • Real-time via cekbank.my.id</p>
     </div>
 
     <!-- Tab Menu -->
-    <div class="flex gap-2 bg-white/10 backdrop-blur-md p-2 rounded-3xl mb-8 w-fit mx-auto">
+    <div class="flex gap-3 bg-white/10 backdrop-blur-xl p-2 rounded-3xl mb-10 w-fit mx-auto shadow-xl">
       <button onclick="switchTab('bank')" id="tab-bank"
-              class="tab-active px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 transition-all">
+              class="tab-active px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 transition-all">
         <i class="fas fa-university"></i>
         Rekening Bank
       </button>
       <button onclick="switchTab('ewallet')" id="tab-ewallet"
-              class="px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 hover:bg-white/10 transition-all">
+              class="px-8 py-4 rounded-3xl font-semibold flex items-center gap-3 hover:bg-white/10 transition-all">
         <i class="fas fa-wallet"></i>
         E-Wallet
       </button>
     </div>
 
-    <!-- Main Form -->
+    <!-- Main Card -->
     <div class="glass rounded-3xl p-10 shadow-2xl">
       <form id="checkForm" class="space-y-8">
         <div>
           <label id="label-select" class="block text-sm font-medium text-indigo-300 mb-2">PILIH BANK</label>
-          <select id="code_bank" class="w-full px-6 py-5 bg-slate-900 border border-white/10 rounded-2xl text-lg focus:outline-none focus:border-indigo-400 transition-all"></select>
+          <select id="code_bank" class="w-full px-6 py-5 bg-slate-900 border border-white/10 rounded-2xl text-lg focus:outline-none focus:border-violet-400 transition-all"></select>
         </div>
 
         <div>
           <label class="block text-sm font-medium text-indigo-300 mb-2">NOMOR REKENING / NOMOR HP</label>
           <input type="text" id="account_number" 
-                 class="w-full px-6 py-5 bg-slate-900 border border-white/10 rounded-2xl text-lg focus:outline-none focus:border-indigo-400 transition-all"
+                 class="w-full px-6 py-5 bg-slate-900 border border-white/10 rounded-2xl text-lg focus:outline-none focus:border-violet-400 transition-all"
                  placeholder="1820701960 atau 081234567890" required>
         </div>
 
         <button type="submit" id="submitBtn"
-                class="neon-button w-full py-6 text-2xl font-semibold rounded-3xl bg-gradient-to-r from-indigo-500 to-emerald-500 hover:from-indigo-600 hover:to-emerald-600 flex items-center justify-center gap-3 shadow-xl">
+                class="neon-button w-full py-6 text-2xl font-semibold rounded-3xl bg-gradient-to-r from-violet-500 to-emerald-500 hover:from-violet-600 hover:to-emerald-600 flex items-center justify-center gap-3 shadow-xl">
           <i class="fas fa-magnifying-glass"></i>
           CEK SEKARANG
         </button>
@@ -123,24 +123,26 @@
   </div>
 
   <script>
-    // Data terpisah
+    // Data Bank & E-Wallet
     const banks = [
       { value: "bca", label: "BCA" },
       { value: "bni", label: "BNI" },
       { value: "bri", label: "BRI" },
       { value: "mandiri", label: "Mandiri" },
       { value: "bsm", label: "BSI Syariah" },
+      { value: "btn", label: "BTN" },
       { value: "permata", label: "Permata Bank" },
       { value: "danamon", label: "Danamon" },
       { value: "cimb", label: "CIMB Niaga" },
       { value: "ocbc", label: "OCBC NISP" },
       { value: "maybank", label: "Maybank" },
+      { value: "bjb", label: "BJB" },
       { value: "panin", label: "Panin Bank" },
       { value: "jago", label: "Bank Jago" },
       { value: "mega", label: "Bank Mega" },
       { value: "kesejahteraan_ekonomi", label: "Seabank" },
-      { value: "tabungan_pensiunan_nasional", label: "JENIUS / BTPN" },
-      { value: "sinarmas", label: "Bank Sinarmas" }
+      { value: "sinarmas", label: "Bank Sinarmas" },
+      { value: "tabungan_pensiunan_nasional", label: "Jenius / BTPN" }
     ];
 
     const ewallet = [
@@ -153,8 +155,6 @@
 
     let currentTab = 'bank';
     const bankMap = {};
-
-    // Gabungkan untuk mapping
     [...banks, ...ewallet].forEach(opt => { bankMap[opt.value] = opt.label; });
 
     const select = document.getElementById('code_bank');
@@ -162,28 +162,24 @@
 
     function loadOptions(tab) {
       select.innerHTML = '';
-      const optionsList = tab === 'bank' ? banks : ewallet;
-      
-      optionsList.forEach(opt => {
+      const list = tab === 'bank' ? banks : ewallet;
+      list.forEach(opt => {
         const option = document.createElement('option');
         option.value = opt.value;
         option.textContent = opt.label;
         select.appendChild(option);
       });
-
       labelSelect.textContent = tab === 'bank' ? 'PILIH BANK' : 'PILIH E-WALLET';
     }
 
     function switchTab(tab) {
       currentTab = tab;
-      
-      // Update tab style
       document.getElementById('tab-bank').classList.toggle('tab-active', tab === 'bank');
       document.getElementById('tab-ewallet').classList.toggle('tab-active', tab === 'ewallet');
-      
       loadOptions(tab);
     }
 
+    // Form & Result logic (sama seperti sebelumnya)
     const form = document.getElementById('checkForm');
     const resultDiv = document.getElementById('result');
     const submitBtn = document.getElementById('submitBtn');
